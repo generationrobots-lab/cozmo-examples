@@ -38,11 +38,12 @@ def cozmo_program(robot: cozmo.robot.Robot):
         print(triggers)
 
         print("\n" , "#########################", "\n")
+        
         # parcourir les noms des animations
         for a in robot.conn.anim_names:
             animations += a + ','
         animations = animations[:-1]
-        #print(animations)
+        print(animations)
 
     except KeyboardInterrupt:
         print("\nExit requested by user")

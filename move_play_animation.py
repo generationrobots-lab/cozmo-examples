@@ -42,7 +42,7 @@ def cozmo_program(robot: cozmo.robot.Robot):
     robot.say_text("une dernière ", duration_scalar=0.5).wait_for_completed()
 
     # # Jouer une animation par son nom.
-    print("Exécution de l'animation :anim_greeting_happy_03")
+    print("Exécution de l'animation : anim_greeting_happy_03")
     robot.play_anim(name="anim_greeting_happy_03").wait_for_completed()
 
     robot.say_text("C'était sympa, hein ?", duration_scalar=0.5).wait_for_completed()
