@@ -28,7 +28,6 @@ import sys
 from PIL import Image, ImageTk
 from libs.simple_image_viewer import SimpleImageViewer
 
-
 def stream_camera(robot: cozmo.robot.Robot):
 	
 	# on active le stream camera

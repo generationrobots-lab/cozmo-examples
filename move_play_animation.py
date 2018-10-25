@@ -16,28 +16,35 @@
 
 '''
 
-Exécution simple d'animations embarquées sur Cozmo
+Exécution simple d'animations embarquées sur Cozmo par Trigger ou par nom
 
 '''
 
 import cozmo
+import time
 
 def cozmo_program(robot: cozmo.robot.Robot):
 
     # Jouer une animation à partir d'une Trigger
-    print("Exécution de la trigger : PeekABooMedIntensity")
-    robot.play_anim_trigger(cozmo.anim.Triggers.PeekABooMedIntensity).wait_for_completed()
+    print("Exécution de la trigger : OnSpeedtapRoundPlayerWinHighIntensity")
+    robot.play_anim_trigger(cozmo.anim.Triggers.OnSpeedtapRoundPlayerWinHighIntensity).wait_for_completed()
+    robot.say_text("une autre", duration_scalar=0.5).wait_for_completed()
 
-    # Jouer une animation à partir d'une Trigger en ignorant le mouvement des roues
-    print("Exécution de la trigger : CubePounceLoseSession (sans body track)")
-    robot.play_anim_trigger(cozmo.anim.Triggers.CubePounceLoseSession, ignore_body_track=True).wait_for_completed()
+    # # Jouer une animation à partir d'une Trigger en ignorant le mouvement des roues
+    print("Exécution de la trigger : OnSpeedtapGameCozmoWinHighIntensity (sans body track)")
+    robot.play_anim_trigger(cozmo.anim.Triggers.OnSpeedtapGameCozmoWinHighIntensity, ignore_body_track=True).wait_for_completed()
+    robot.say_text("et encore une", duration_scalar=0.5).wait_for_completed()
 
-    # Jouer une animation à partir d'une Trigger avec le mouvement des roues
-    print("Exécution de la trigger : CubePounceLoseSession (avec body track)")
-    robot.play_anim_trigger(cozmo.anim.Triggers.CubePounceLoseSession, ignore_body_track=False).wait_for_completed()
+    
+    # # Jouer une animation à partir d'une Trigger avec le mouvement des roues
+    print("Exécution de la trigger : OnSpeedtapGameCozmoWinHighIntensity (avec body track)")
+    robot.play_anim_trigger(cozmo.anim.Triggers.OnSpeedtapGameCozmoWinHighIntensity, ignore_body_track=False).wait_for_completed()
+    robot.say_text("une dernière ", duration_scalar=0.5).wait_for_completed()
 
-    # Jouer une animation par son nom.
-    print("Exécution de l'animation : anim_poked_giggle")
-    robot.play_anim(name="anim_poked_giggle").wait_for_completed()
+    # # Jouer une animation par son nom.
+    print("Exécution de l'animation :anim_greeting_happy_03")
+    robot.play_anim(name="anim_greeting_happy_03").wait_for_completed()
+
+    robot.say_text("C'était sympa, hein ?", duration_scalar=0.5).wait_for_completed()
 
 cozmo.run_program(cozmo_program)
