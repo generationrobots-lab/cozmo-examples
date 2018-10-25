@@ -16,8 +16,8 @@
 
 '''
 
-Stream de la camera vers une vue TkViewer
-Nous utilison une lib disponible dans le répartoire libs/
+Stream de la caméra Cozmo vers une vue TkViewer
+Utilisation d'une lib disponible dans le répertoire libs/
 
 '''
 
@@ -45,7 +45,8 @@ def stream_camera(robot: cozmo.robot.Robot):
 			if latest_image:
 				
 				# affichage du image_number
-				print(latest_image.image_number)
+				#print(latest_image.image_number)
+				print('.', end='', flush=True)
 
 				# récupération du raw
 				im = latest_image.raw_image
