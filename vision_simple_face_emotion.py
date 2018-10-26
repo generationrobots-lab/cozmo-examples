@@ -31,6 +31,9 @@ def main_program(_robot: cozmo.robot.Robot):
 	robot = _robot
 
 	try:
+		# Activer la reconnaissance d'expression
+		robot.enable_facial_expression_estimation(True)
+
 		print("Positionner un visage devant la caméra ou positionner Cozmo devant vous")
 		print("Ctrl+C pour terminer")
 		while True:
