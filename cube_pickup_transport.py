@@ -4,7 +4,11 @@
 
 ''' Transporter des cubes
 
-Ce script montre un exemple on allume les leds de cubes
+Ce script permet de détecter les 3 cubes, défini 3 positions et déplace les 3 cubes sur chacune de ces positions.
+
+Utilisation : 
+- Placer les 3 cubes alignés devant Cozmo
+- Executer le script
 '''
 
 import time
