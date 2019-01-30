@@ -24,8 +24,11 @@ def cozmo_program(robot: cozmo.robot.Robot):
     cube2 = robot.world.get_light_cube(LightCube2Id)  # looks like a lamp / heart
     cube3 = robot.world.get_light_cube(LightCube3Id)  # looks like the letters 'ab' over 'T'
 
+
     red, green, blue, white=cozmo.lights.red_light, cozmo.lights.green_light, cozmo.lights.blue_light, cozmo.lights.white_light
-    colors=[blue, white, white, white]
+    colors=[red, white, white, white]
+
+    time.sleep(5)
 
     if cube1 is not None:
         for l in [red, green, blue, white]: 
