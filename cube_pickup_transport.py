@@ -4,7 +4,7 @@
 
 ''' Transporter des cubes
 
-Ce script permet de détecter les 3 cubes, défini 3 positions et déplace les 3 cubes sur chacune de ces positions.
+Ce script permet de détecter les 3 cubes, défini 1 position, déplace 1 cube à cette position puis empiler 2 cubes
 
 Utilisation : 
 - Placer les 3 cubes alignés devant Cozmo
@@ -29,6 +29,7 @@ def cozmo_program(robot: cozmo.robot.Robot):
     cube2 = robot.world.get_light_cube(LightCube2Id)  # le cube lampe 
     cube3 = robot.world.get_light_cube(LightCube3Id)  # le cube ab sur un T
 
+    # scan de l'environnement pour trouver les cubes
     look_around = robot.start_behavior(cozmo.behavior.BehaviorTypes.LookAroundInPlace)
     try:
         _cubes = robot.world.wait_until_observe_num_objects(num=3, object_type=cozmo.objects.LightCube, timeout=60)
@@ -38,11 +39,10 @@ def cozmo_program(robot: cozmo.robot.Robot):
     finally:
         look_around.stop()
     
+    # position arbitraire
     location1 =  Pose(cube1.pose.position.x-200, cube1.pose.position.y-50 , 0, angle_z=degrees(0))
-    location2 =  Pose(cube2.pose.position.x+100, cube2.pose.position.y+150 , 0, angle_z=degrees(0))
-    location3 =  Pose(cube3.pose.position.x-50, cube3.pose.position.y+100 , 0, angle_z=degrees(0))
 
-
+    # déplacer le cube 1 à la position location1
     if cube1 is not None:
         robot.pickup_object(cube1, num_retries=3).wait_for_completed()
         robot.go_to_pose(location1).wait_for_completed()
@@ -50,19 +50,11 @@ def cozmo_program(robot: cozmo.robot.Robot):
     else:
         cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")
 
-    if cube2 is not None:
-        robot.pickup_object(cube2, num_retries=3).wait_for_completed()
-        robot.go_to_pose(location2).wait_for_completed()
-        robot.place_object_on_ground_here(cube2, num_retries=3).wait_for_completed()
-    else:
-        cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")
-
-    if cube3 is not None:
+    # placer le cube 3 sur le cube 2
+    if cube2 is not None and cube3 is not None:
         robot.pickup_object(cube3, num_retries=3).wait_for_completed()
-        robot.go_to_pose(location3).wait_for_completed()
-        robot.place_object_on_ground_here(cube3, num_retries=3).wait_for_completed()
+        robot.place_on_object(cube2, num_retries=3).wait_for_completed()
     else:
         cozmo.logger.warning("Cozmo is not connected to a LightCube1Id cube - check the battery.")
-
 
 cozmo.run_program(cozmo_program,  use_viewer=True)
