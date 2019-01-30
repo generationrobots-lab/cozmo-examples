@@ -2,8 +2,9 @@
 
 # Copyright (c) Génération Robots
 
-'''Démo des événements de détection de mouvement des cubes
+'''Démonstration des événements de détection de mouvement des cubes
 
+Les cubes n'ont pas besoin d'être vu par la caméra du robot
 
 '''
 
@@ -19,7 +20,7 @@ def cb_object_moving_started(evt, **kw):
         On peut récupérer l'accélération du cube
     """
     
-    print("Cube %s started moving: acceleration=%s" %
+    print("Le cube %s a commencé à bouger: accéleration=%s" %
           (evt.obj.object_id, evt.acceleration))
 
 
@@ -29,7 +30,7 @@ def cb_object_moving(evt, **kw):
 
         On peut récupérer l'accélération et la durée du déplacement
     """
-    print("Cube %s is moving: acceleration=%s, duration=%.1f seconds" %
+    print("Le cube %s est en mouvement: accéleration=%s, durée=%.1f secondes" %
           (evt.obj.object_id, evt.acceleration, evt.move_duration))
 
 
@@ -39,18 +40,18 @@ def cb_object_moving_stopped(evt, **kw):
 
         On peut récupérer la durée du déplacement de l'objet
     """
-    print("Cube %s stopped moving: duration=%.1f seconds" %
+    print("Le cube %s a arrêté de bouger: durée=%.1f secondes" %
           (evt.obj.object_id, evt.move_duration))
 
 
 def cozmo_program(robot: cozmo.robot.Robot):
-    # Add event handlers that will be called for the corresponding event
-    robot.add_event_handler(cozmo.objects.EvtObjectMovingStarted, handle_object_moving_started)
-    robot.add_event_handler(cozmo.objects.EvtObjectMoving, handle_object_moving)
-    robot.add_event_handler(cozmo.objects.EvtObjectMovingStopped, handle_object_moving_stopped)
+    # on ajoute des handlers pour chaque événement
+    robot.add_event_handler(cozmo.objects.EvtObjectMovingStarted, cb_object_moving_started)
+    robot.add_event_handler(cozmo.objects.EvtObjectMoving, cb_object_moving)
+    robot.add_event_handler(cozmo.objects.EvtObjectMovingStopped, cb_object_moving_stopped)
 
-    # keep the program running until user closes / quits it
-    print("Press CTRL-C to quit")
+    # boucle infinie jusqu'à la combinaison de touches CTRL+C
+    print("Presser CTRL-C pour arrêter")
     while True:
         time.sleep(1.0)
 
