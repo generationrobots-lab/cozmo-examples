@@ -4,14 +4,38 @@
 
 ''' Utilisation des custom objects pour créer un parcours pour Cozmo.
 
-This example demonstrates how you can create custom objects in the world, and
-automatically have Cozmo path around them as if they are real obstacles.
+Dans cet exemple nous créons des objets personnalisés. Cozmo tient compte des ces nouveaux objets dans ses déplacements.
 
-It creates a few walls in front of cozmo and tells him to drive around it.
-He will plan a path to drive 200mm in front of himself after these objects are created.
+L'utilisation de l'argument `use_3d_viewer=True` permet d'afficher la visualisation 3D et de "matérialiser" ces objets dans l'environement de Cozmo
 
-The `use_3d_viewer=True` argument causes the 3D visualizer to open in a new
-window - this shows where Cozmo believes this imaginary object is.
+Avant de lancer le programme réinitialiser sa position en soulevant Cozmo.
+Soulever et reposer le robot à la position (0,0) de votre repère.
+La position devrait être (0,0)
+
+
+Dans cet exemple on utilise un repère carré de 400x400 mm. 
+La position (0, 0) située en bas à droite correspond au sommet 1. 
+Le sommet 2 est en (0, 400), le sommet 3 en face en (400, 0)
+Les coordonnées des objets sont relatives à la position (0, 0)
+
+
+s4 (400,400)			s3 (400, 0)
+	---------------------
+	|					|
+	|					|
+	|					|
+	|		A		 C 	| 
+	|					| B
+	|					|
+	|					|
+	|					|
+	|					|
+	---------------------
+s2 (0, 400)				s1 (0,0)
+						^
+						|
+					  cozmo
+
 '''
 
 import cozmo
@@ -21,10 +45,12 @@ import time
 def cozmo_program(robot: cozmo.robot.Robot):
 	
 	time.sleep(4)
-	WALL_HEIGHT = 20
+	WALL_HEIGHT = 50
 
+	# réinitialisation des objets 
 	robot.world.delete_all_custom_objects()
 
+	# creation des murs relativement à la position initiale de Cozmo
 	center_wall1 	= Pose(300, 0, 0,  angle_z=degrees(0))
 	wall1 			= robot.world.create_custom_fixed_object(center_wall1, 400, 10, WALL_HEIGHT, relative_to_robot=True)
 
@@ -42,7 +68,6 @@ def cozmo_program(robot: cozmo.robot.Robot):
 
 	center_wall6 	= Pose(250, 100, 0,  angle_z=degrees(0))
 	wall6 			= robot.world.create_custom_fixed_object(center_wall6, 100, 10, WALL_HEIGHT, relative_to_robot=True)
-
 
 	# soulever et reposer le robot à la position (0,0) de votre repère.
 	# sa position devrait être (0,0)
